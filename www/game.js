@@ -16,10 +16,10 @@ loader.load();
 function onAssetsLoaded() {
 
   draw(14, 4, 10,
-   "GDwwDGGGGGGGGG"+"              "+"              "+"              "+
-   "GGDwwDGGGSSSSG"+"       ' SSSS "+"              "+"         8112 "+
-   "GGDwwDGGGSSSSG"+",     T  S  S "+"              "+"         7WW3 "+
-   "GGGDwwDGGSSSSG"+"         W#!W "+"         W  W "+"         6554 "+
+   "GDwwDGGGGSSSSG"+"              "+"              "+"         8112 "+
+   "GGDwwDGGGSSSSG"+"       '      "+"              "+"         7WW3 "+
+   "GGDwwDGGGSSSSG"+",     T  W#!W "+"         W  W "+"         6554 "+
+   "GGGDwwDGGGGSGG"+"              "+"              "+"              "+
    "GGGGDwwDGGGSGG"+"  T         t "+"              "+"              "+
    "GGGGGDwwDGGSGG"+" R            "+"              "+"              "+
    "GSSSSSwwSSSSSS"+"R   <S  S> @  "+"     <SS>     "+"      *       "+
@@ -65,7 +65,7 @@ function onAssetsLoaded() {
 function draw(w, h, d, grid, names) {
   var i = 0;
   var left = (width - w * 100) >>> 1;
-  var top = (height - d * 80) >>> 1 - 20;
+  var top = (height - d * 80 + h * 40 - 180) >>> 1;
   for (var z = 0; z < d; z++) {
     for (var y = 0; y < h; y++) {
       for (var x = 0; x < w; x++) {
