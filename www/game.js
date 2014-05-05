@@ -1,7 +1,7 @@
 /*global PIXI*/
 "use strict";
-var width = window.innerWidth;
-var height = window.innerHeight;
+var width = 1920;//window.innerWidth;
+var height = 1080;//window.innerHeight;
 
 
 var renderer = PIXI.autoDetectRenderer(width, height);
@@ -65,7 +65,9 @@ function onAssetsLoaded() {
 function draw(w, h, d, grid, names) {
   var i = 0;
   var left = (width - w * 100) >>> 1;
+  left = 0;
   var top = (height - d * 80) >>> 1;
+  top = 0;
   for (var z = 0; z < d; z++) {
     for (var y = 0; y < h; y++) {
       for (var x = 0; x < w; x++) {
@@ -73,7 +75,6 @@ function draw(w, h, d, grid, names) {
         if (!name) continue;
         var px = left + x * 100;
         var py = top + z * 80 - y * 40;
-        // if (px < -10 || px > width || py < -10 || py > height) continue;
         var block = PIXI.Sprite.fromFrame(name);
         block.position.x = px;
         block.position.y = py;
