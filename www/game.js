@@ -15,18 +15,49 @@ loader.load();
 
 function onAssetsLoaded() {
 
-  draw(8, 2, 6, [
-    0,0,1,1,1,0,0,0, 0,0,0,0,0,0,0,0,
-    0,2,2,1,1,1,1,1, 0,0,0,0,0,0,0,0,
-    1,2,2,2,1,1,1,1, 0,0,3,3,3,0,0,0,
-    1,1,1,2,1,1,1,1, 0,0,3,3,0,0,0,0,
-    0,1,1,2,2,1,1,0, 0,0,0,0,0,0,0,0,
-    0,0,1,2,2,0,0,0, 0,0,0,0,0,0,0,0,
-  ], [ null,
-    "Grass Block",
-    "Water Block",
-    "Stone Block",
-  ]);
+  draw(14, 4, 10,
+   "GDwwDGGGGGGGGG"+"              "+"              "+"              "+
+   "GGDwwDGGGSSSSG"+"       ' SSSS "+"              "+"         8112 "+
+   "GGDwwDGGGSSSSG"+",     T  S  S "+"              "+"         7WW3 "+
+   "GGGDwwDGGSSSSG"+"         W#!W "+"         W  W "+"         6554 "+
+   "GGGGDwwDGGGSGG"+"  T         t "+"              "+"              "+
+   "GGGGGDwwDGGSGG"+" R            "+"              "+"              "+
+   "GSSSSSwwSSSSSS"+"R   <S  S> @  "+"     <SS>     "+"      *       "+
+   "GGGGGDwwDGGGGG"+" R         ^  "+"              "+"              "+
+   "GGGGDwwwDGGGGG"+"  .        S x"+"           ^  "+"              "+
+   "GGGDwwwwwDGGGG"+"T         S S "+"          <S> "+"           K  ",
+  {
+    G: "Grass Block",
+    W: "Wood Block",
+    D: "Dirt Block",
+    S: "Stone Block",
+    w: "Water Block",
+    "v": "Ramp South",
+    ">": "Ramp East",
+    "^": "Ramp North",
+    "<": "Ramp West",
+    "1": "Roof North",
+    "2": "Roof North East",
+    "3": "Roof East",
+    "4": "Roof South East",
+    "5": "Roof South",
+    "6": "Roof South West",
+    "7": "Roof West",
+    "8": "Roof North West",
+    "!": "Door Tall Closed",
+    "#": "Window Tall",
+    "T": "Tree Tall",
+    "t": "Tree Short",
+    "x": "Tree Ugly",
+    "R": "Rock",
+    "h": "Heart",
+    "*": "Enemy Bug",
+    "@": "Character Boy",
+    "K": "Key",
+    ",": "Gem Blue",
+    ".": "Gem Green",
+    "'": "Gem Orange",
+  });
  renderer.render(stage);
 
 }
@@ -34,7 +65,7 @@ function onAssetsLoaded() {
 function draw(w, h, d, grid, names) {
   var i = 0;
   var left = (width - w * 100) >>> 1;
-  var top = (height - d * 80) >>> 1;
+  var top = (height - d * 80) >>> 1 - 20;
   for (var z = 0; z < d; z++) {
     for (var y = 0; y < h; y++) {
       for (var x = 0; x < w; x++) {

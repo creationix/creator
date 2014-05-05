@@ -85,7 +85,7 @@
 	"frame": {"x":105,"y":330,"w":101,"h":151},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":20,"w":101,"h":151},
+	"spriteSourceSize": {"x":0,"y":30,"w":101,"h":151},
 	"sourceSize": {"w":101,"h":171}
 },
 "Door Tall Open":
