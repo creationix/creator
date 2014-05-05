@@ -16,10 +16,10 @@ loader.load();
 function onAssetsLoaded() {
 
   draw(14, 4, 10,
-   "GDwwDGGGGSSSSG"+"              "+"              "+"         8112 "+
-   "GGDwwDGGGSSSSG"+"       '      "+"              "+"         7WW3 "+
-   "GGDwwDGGGSSSSG"+",     T  W#!W "+"         W  W "+"         6554 "+
-   "GGGDwwDGGGGSGG"+"              "+"              "+"              "+
+   "GDwwDGGGGSSSSG"+"              "+"              "+"              "+
+   "GGDwwDGGGSSSSG"+"       '      "+"              "+"         8112 "+
+   "GGDwwDGGGSSSSG"+",     T       "+"         W  W "+"         7WW3 "+
+   "GGGDwwDGGGGSGG"+"         W#!W "+"         W  W "+"         6554 "+
    "GGGGDwwDGGGSGG"+"  T         t "+"              "+"              "+
    "GGGGGDwwDGGSGG"+" R            "+"              "+"              "+
    "GSSSSSwwSSSSSS"+"R   <S  S> @  "+"     <SS>     "+"      *       "+
@@ -65,15 +65,18 @@ function onAssetsLoaded() {
 function draw(w, h, d, grid, names) {
   var i = 0;
   var left = (width - w * 100) >>> 1;
-  var top = (height - d * 80 + h * 40 - 180) >>> 1;
+  var top = (height - d * 80) >>> 1;
   for (var z = 0; z < d; z++) {
     for (var y = 0; y < h; y++) {
       for (var x = 0; x < w; x++) {
         var name = names[grid[i++]];
         if (!name) continue;
+        var px = left + x * 100;
+        var py = top + z * 80 - y * 40;
+        // if (px < -10 || px > width || py < -10 || py > height) continue;
         var block = PIXI.Sprite.fromFrame(name);
-        block.position.x = left + x * 100;
-        block.position.y = top + z * 80 - y * 40;
+        block.position.x = px;
+        block.position.y = py;
         stage.addChild(block);
       }
     }
