@@ -9,23 +9,30 @@
   this.load = load;
   load.async = loadAsync;
   load.modules = modules;
+  load.strict = false;
 
   function module(name, definition) {
+    console.log("new module", name);
     var list = waiting[name];
-    if (!list) throw new Error("Name mismatch in module: " + name);
+    if (!list && load.strict) {
+      throw new Error("Module name mismatch: " + name);
+    }
+    modules[name] = undefined;
     run(definition, function (err, module) {
-      delete waiting[name];
-      list.forEach(function (callback) {
-        callback(err, module);
-      });
+      modules[name] = module;
+      if (list) {
+        delete waiting[name];
+        list.forEach(function (callback) {
+          callback(err, module);
+        });
+      }
     });
   }
 
   function* load(name) {
 
     // If the module is already loaded, return the cached value
-    var module = modules[name];
-    if (module) return module;
+    if (name in modules) return modules[name];
 
     // If the module is already loading, wait for it to finish
     var list = waiting[name];
@@ -40,7 +47,7 @@
     tag.setAttribute("src", name + ".js");
     tag.setAttribute("async", "true");
     document.head.appendChild(tag);
-    module = modules[name] = yield function (callback) {
+    var module = yield function (callback) {
       waiting[name] = [callback];
     };
     document.head.removeChild(tag);
@@ -183,8 +190,3 @@
   }
 })();
 
-// Clean the body real nice
-document.body.textContent = "";
-
-// Start the main module
-load.async("main");

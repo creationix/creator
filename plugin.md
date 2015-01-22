@@ -17,11 +17,38 @@ challenging use case will provide a good ground for architecting the sytem.
 
 ## Plugin API
 
-The driver for any plugin is simply a javascript file.  It is normally run in
-a worker to keep the system more stable, but some require APIs not existing in
-workers. These will be run in a fairly clean environment using `new Function`.
+The driver for any plugin is simply a javascript module.  The core modules
+contain the mutable lists of items like menu entries and live filesystems.
 
+For example, a simple plugin may have one command to enable itself and another
+to disable itself.  It will do this by adding and removing keys on the menu
+list.
 
 ```js
-module.exports =
+var vfs = yield* load('core/vfs');
+var menu = yield* load('core/menu');
+
+var enableCommand = "Temp Filesystem: Enable";
+var disableCommand = "Temp Filesystem: Disable";
+
+menu[enableCommand] = enable;
+
+var fs = {...};
+
+return {
+  enable: enable,
+  disable: disable,
+};
+
+function* enable() {
+  delete menu[enableCommand];
+  menu[disableCommand] = disable;
+  vfs["temp://"] = fs;
+}
+
+function* disable() {
+  menu[enableCommand] = enable;
+  delete menu[disableCommand];
+  delete vfs["temp://"];
+}
 ```
