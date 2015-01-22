@@ -1,0 +1,6 @@
+{
+  "unused": true,
+  "undef": true,
+  "esnext": true,
+  "globals": {"load":true, "module":true}
+}
