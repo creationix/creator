@@ -26,6 +26,7 @@
           callback(err, module);
         });
       }
+      if (err) throw err;
     });
   }
 
