@@ -2,5 +2,5 @@
   "unused": true,
   "undef": true,
   "esnext": true,
-  "globals": {"load":true, "module":true}
+  "globals": {"load":true, "module":true, "run":true, "setImmediate":true}
 }

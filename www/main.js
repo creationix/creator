@@ -1,7 +1,10 @@
+/*jshint browser:true*/
 module("main", function* () {
   var tempFs = yield* load("plugins/temp-filesystem");
   var menu = yield* load('core/menu');
   var fs = yield* load('core/vfs');
+  var createComponent = yield* load("lib/domchanger");
+  var TreeView = yield* load("ui/treeview");
 
   yield* tempFs.enable();
   yield* tree("/tmp");
@@ -30,4 +33,8 @@ module("main", function* () {
     console.log(name);
   }
   console.groupEnd();
+
+  createComponent(TreeView, document.body).update("tmp");
+
+
 });

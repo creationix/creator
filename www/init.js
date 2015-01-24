@@ -7,6 +7,7 @@
 
   this.module = module;
   this.load = load;
+  this.run = run;
   load.async = loadAsync;
   load.modules = modules;
   load.strict = false;
@@ -189,5 +190,24 @@
       });
     });
   }
+
+  if (!this.setImmediate) {
+    // Polyfill setImmediate using mutation observers
+    var hiddenDiv = document.createElement("div");
+    var callbacks = [];
+    (new MutationObserver(function() {
+      var list = callbacks.slice();
+      callbacks.length = 0;
+      list.forEach(function(callback) { callback(); });
+    })).observe(hiddenDiv, { attributes: true });
+
+    this.setImmediate = function (callback) {
+      if (!callbacks.length) {
+        hiddenDiv.setAttribute('yes', 'no');
+      }
+      callbacks.push(callback);
+    };
+  }
+
 })();
 

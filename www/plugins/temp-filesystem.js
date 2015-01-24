@@ -1,3 +1,6 @@
+// This plugin mounts an in-memory filesystem at /tmp.  It is blank at startup
+// and everything is lost when the JS context is lost.
+
 /*jshint browser:true*/
 module("plugins/temp-filesystem", function* () {
   "use strict";
