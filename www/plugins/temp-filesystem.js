@@ -191,7 +191,7 @@ module("plugins/temp-filesystem", function* () {
   function* enable() {
     delete menu[enableCommand];
     menu[disableCommand] = disable;
-    vfs["temp://"] = fs;
+    vfs.mount("tmp", fs);
     root = makeTree();
     fs.root = root;
     return fs;
@@ -200,7 +200,7 @@ module("plugins/temp-filesystem", function* () {
   function* disable() {
     menu[enableCommand] = enable;
     delete menu[disableCommand];
-    delete vfs["temp://"];
+    vfs.umount("tmp");
     root = null;
   }
 

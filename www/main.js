@@ -1,26 +1,20 @@
 module("main", function* () {
   var tempFs = yield* load("plugins/temp-filesystem");
   var menu = yield* load('core/menu');
-  var vfs = yield* load('core/vfs');
-  for (var name in menu) {
-    console.log(name, menu[name]);
-  }
-  var fs = yield* tempFs.enable();
-  yield* tree();
-  yield* fs.mkfile("/foo/bar/baz.txt", "Hello World\n");
-  yield* tree();
-  yield* fs.copy("/foo/bar", "/lot/bot");
-  yield* tree();
-  yield* fs.rename("/foo/bar", "/foo/b/a/r");
-  yield* tree();
-  yield* fs.copy("", "copy");
-  yield* tree();
+  var fs = yield* load('core/vfs');
+
+  yield* tempFs.enable();
+  yield* tree("/tmp");
+  yield* fs.mkfile("/tmp/foo/bar/baz.txt", "Hello World\n");
+  yield* tree("/tmp");
+  yield* fs.copy("/tmp/foo/bar", "tmp/lot/bot");
+  yield* tree("/tmp");
+  yield* fs.rename("/tmp/foo/bar", "tmp/foo/b/a/r");
+  yield* tree("/tmp");
+  yield* fs.copy("tmp", "tmp/copy");
+  yield* tree("/tmp");
 
   function* tree(path) {
-    if (!path) {
-      console.log();
-      path = "";
-    }
     var stat = yield* fs.stat(path);
     console.log(path || "/", stat);
     if (stat.type == "dir") {
@@ -31,7 +25,9 @@ module("main", function* () {
     }
   }
 
+  console.group("Menu Items");
   for (name in menu) {
-    console.log(name, menu[name]);
+    console.log(name);
   }
+  console.groupEnd();
 });
